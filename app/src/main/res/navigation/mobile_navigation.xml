@@ -3,41 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_status">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_status"
         android:name="com.circ.smartcityshow.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_status"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.circ.smartcityshow.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:id="@+id/nav_map"
+        android:name="com.circ.smartcityshow.ui.map.MapFragment"
+        android:label="@string/menu_map"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_streaming"
         android:name="com.circ.smartcityshow.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_streaming"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/nav_tools"
+        android:id="@+id/nav_contact"
         android:name="com.circ.smartcityshow.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
+        android:label="@string/menu_contact"
         tools:layout="@layout/fragment_tools" />
 
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="com.circ.smartcityshow.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="com.circ.smartcityshow.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
 </navigation>
