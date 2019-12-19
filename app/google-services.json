@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "967779001126",
+    "firebase_url": "https://smartcityshow-7db5d.firebaseio.com",
+    "project_id": "smartcityshow-7db5d",
+    "storage_bucket": "smartcityshow-7db5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967779001126:android:63cdc402d535bed10f57e7",
+        "android_client_info": {
+          "package_name": "com.circ.smartcityshow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967779001126-g8okun069t6g4crnbbj10rigarl04fp9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.circ.smartcityshow",
+            "certificate_hash": "bb8461f4f3bc09af457e4e2e3a435c2448115170"
+          }
+        },
+        {
+          "client_id": "967779001126-cpbcc7g0h7qk72dmohgmgadu49cucjsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyCLdai191iISLjJQQI_ODyne5ufLdtZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967779001126-cpbcc7g0h7qk72dmohgmgadu49cucjsh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
