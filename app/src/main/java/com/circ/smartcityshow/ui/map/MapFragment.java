@@ -176,6 +176,7 @@ public  class MapFragment extends Fragment implements OnMapReadyCallback,GoogleA
             markerOptions.icon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_MAGENTA ) );
             currLocationMarker = map.addMarker( markerOptions );
             refreshMapPosition(latLng,0);
+            Log.d(TAG,"move to last position done");
 
         }
     }
