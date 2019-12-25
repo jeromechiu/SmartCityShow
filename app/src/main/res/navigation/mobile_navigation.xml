@@ -12,10 +12,11 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:id="@+id/nav_map"
         android:name="com.circ.smartcityshow.ui.map.MapFragment"
         android:label="@string/menu_map"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/nav_streaming"

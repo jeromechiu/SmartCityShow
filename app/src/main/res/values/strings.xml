@@ -12,4 +12,6 @@
     <string name="menu_streaming">Live Streaming</string>
     <string name="menu_contact">Contact Us</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="error_location_provider">GPS or Network not \"Enabled\"</string>
+
 </resources>
