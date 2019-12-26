@@ -1,11 +1,11 @@
 {
   "type": "FeatureCollection",
-  "title": "Drone flight route"
+  "title": "Drone flight route",
   "features": [
     {
       "type": "Feature",
       "properties": {
-      	"stroke": "#0033db",
+      	"stroke": "#0033db"
       },
       "geometry": {
         "type": "LineString",
