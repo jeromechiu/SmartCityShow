@@ -3,11 +3,13 @@ package com.circ.smartcityshow.ui.map;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -26,12 +28,25 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.data.Feature;
+import com.google.maps.android.data.geojson.GeoJsonFeature;
+import com.google.maps.android.data.geojson.GeoJsonLayer;
+import com.google.maps.android.data.geojson.GeoJsonPointStyle;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 public  class MapFragment extends Fragment implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = MainActivity.class.getName();
@@ -178,6 +193,10 @@ public  class MapFragment extends Fragment implements OnMapReadyCallback,GoogleA
             refreshMapPosition(latLng,0);
             Log.d(TAG,"move to last position done");
 
+            Log.d( TAG, "Prepare to load geojson file" );
+//            retrieveFileFromResource();
+            retrieveFileFromUrl();
+
         }
     }
     @Override
@@ -187,5 +206,115 @@ public  class MapFragment extends Fragment implements OnMapReadyCallback,GoogleA
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
     }
+
+
+    private void retrieveFileFromUrl() {
+        Log.d( TAG, "Fetch file from " + getResources().getString( R.string.geojson_url ) );
+        new DownloadGeoJsonFile().execute( getString( R.string.geojson_url ) );
+    }
+
+    private void retrieveFileFromResource() {
+        try {
+            GeoJsonLayer layer = new GeoJsonLayer( map, R.raw.geomap,
+                    getActivity() );
+            addGeoJsonLayerToMap( layer );
+        } catch (IOException e) {
+            Log.e( TAG, "GeoJSON file could not be read" );
+        } catch (JSONException e) {
+            Log.e( TAG, "GeoJSON file could not be converted to a JSONObject" );
+        }
+    }
+
+    private class DownloadGeoJsonFile extends AsyncTask<String, Void, GeoJsonLayer> {
+
+        @Override
+        protected GeoJsonLayer doInBackground(String... params) {
+            try {
+                // Open a stream from the URL
+                InputStream stream = new URL( params[0] ).openStream();
+                Log.d( TAG, "stream: " + stream );
+                String line;
+                StringBuilder result = new StringBuilder();
+                BufferedReader reader = new BufferedReader( new InputStreamReader( stream ) );
+
+                while ((line = reader.readLine()) != null) {
+                    // Read and save each line of the stream
+                    result.append( line );
+                }
+
+                // Close the stream
+                reader.close();
+                stream.close();
+
+                return new GeoJsonLayer( map, new JSONObject( result.toString() ) );
+            } catch (IOException e) {
+                Log.e( TAG, "GeoJSON file could not be read" );
+            } catch (JSONException e) {
+                Log.e( TAG, "GeoJSON file could not be converted to a JSONObject" );
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(GeoJsonLayer layer) {
+            if (layer != null) {
+                addGeoJsonLayerToMap( layer );
+            }
+        }
+    }
+
+    private void addGeoJsonLayerToMap(GeoJsonLayer layer) {
+
+        addColorsToMarkers( layer );
+        layer.addLayerToMap();
+        // Demonstrate receiving features via GeoJsonLayer clicks.
+        layer.setOnFeatureClickListener( new GeoJsonLayer.GeoJsonOnFeatureClickListener() {
+            @Override
+            public void onFeatureClick(Feature feature) {
+                Toast.makeText( getActivity(),
+                        "Feature clicked: " + feature.getProperty( "title" ),
+                        Toast.LENGTH_SHORT ).show();
+            }
+
+        } );
+    }
+
+    private void addColorsToMarkers(GeoJsonLayer layer) {
+        // Iterate over all the features stored in the layer
+        for (GeoJsonFeature feature : layer.getFeatures()) {
+            // Check if the magnitude property exists
+            if (feature.getProperty( "mag" ) != null && feature.hasProperty( "place" )) {
+                double magnitude = Double.parseDouble( feature.getProperty( "mag" ) );
+
+                // Get the icon for the feature
+                BitmapDescriptor pointIcon = BitmapDescriptorFactory
+                        .defaultMarker( magnitudeToColor( magnitude ) );
+
+                // Create a new point style
+                GeoJsonPointStyle pointStyle = new GeoJsonPointStyle();
+
+                // Set options for the point style
+                pointStyle.setIcon( pointIcon );
+                pointStyle.setTitle( "Magnitude of " + magnitude );
+                pointStyle.setSnippet( "Earthquake occured " + feature.getProperty( "place" ) );
+
+                // Assign the point style to the feature
+                feature.setPointStyle( pointStyle );
+            }
+        }
+    }
+
+    private static float magnitudeToColor(double magnitude) {
+        if (magnitude < 1.0) {
+            return BitmapDescriptorFactory.HUE_CYAN;
+        } else if (magnitude < 2.5) {
+            return BitmapDescriptorFactory.HUE_GREEN;
+        } else if (magnitude < 4.5) {
+            return BitmapDescriptorFactory.HUE_YELLOW;
+        } else {
+            return BitmapDescriptorFactory.HUE_RED;
+        }
+    }
+
 
 }
