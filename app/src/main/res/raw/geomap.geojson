@@ -1,11 +1,11 @@
 {
   "type": "FeatureCollection",
+  "title": "Drone flight route"
   "features": [
     {
       "type": "Feature",
       "properties": {
       	"stroke": "#0033db",
-      	"title": "Flight route"
       },
       "geometry": {
         "type": "LineString",
@@ -43,8 +43,7 @@
         "marker-symbol": "chemist",
         "marker-color": "#008000",
         "marker-size": "medium",
-        "name": "Point3",
-        "description": "Point3",
+        "waypoint": "1",
         "time": "13:01:40 12/12/2019"
       },
       "geometry": {
@@ -60,10 +59,9 @@
       "properties": {
         "marker-symbol": "chemist",
         "marker-color": "#008000",
-        "marker-size": "medium",
-        "name": "Point3",
-        "description": "Point3",
-        "time": "13:01:40 12/12/2019"
+        "marker-size": "medium",        
+        "waypoint": "2",
+        "time": "13:04:10 12/12/2019"
       },
       "geometry": {
         "type": "Point",
@@ -78,10 +76,9 @@
       "properties": {
         "marker-symbol": "chemist",
         "marker-color": "#008000",
-        "marker-size": "medium",
-        "name": "Point3",
-        "description": "Point3",
-        "time": "13:01:40 12/12/2019"
+        "marker-size": "medium",        
+        "waypoint": "3",
+        "time": "13:07:40 12/12/2019"
       },
       "geometry": {
         "type": "Point",
@@ -90,7 +87,57 @@
           24.771143992685925
         ]
       }
-    }
-    
+    },    {
+      "type": "Feature",
+      "properties": {
+        "marker-symbol": "chemist",
+        "marker-color": "#008000",
+        "marker-size": "medium",        
+        "waypoint": "4",
+        "time": "13:10:40 12/12/2019"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.03049755096434,
+          24.770576539637563
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+         "marker-symbol": "chemist",
+        "marker-color": "#008000",
+        "marker-size": "medium",        
+        "waypoint": "5",
+        "time": "13:12:40 12/12/2019"
+      
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.03015691041946,
+          24.77013816211648
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-symbol": "chemist",
+        "marker-color": "#008000",
+        "marker-size": "medium",        
+        "waypoint": "6",
+        "time": "13:14:40 12/12/2019"
+      
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.02986186742783,
+          24.77012842037621
+        ]
+      }
   ]
 }
