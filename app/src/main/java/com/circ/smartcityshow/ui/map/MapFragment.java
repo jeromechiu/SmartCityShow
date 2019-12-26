@@ -132,7 +132,7 @@ public  class MapFragment extends Fragment implements OnMapReadyCallback,GoogleA
     private void refreshMapPosition(LatLng pos, float angle) {
         CameraPosition.Builder positionBuilder = new CameraPosition.Builder();
         positionBuilder.target( pos );
-        positionBuilder.zoom( 15f );
+        positionBuilder.zoom( 17 );
         positionBuilder.bearing( angle );
         positionBuilder.tilt( 60 );
         map.animateCamera( CameraUpdateFactory.newCameraPosition( positionBuilder.build() ) );
@@ -283,20 +283,22 @@ public  class MapFragment extends Fragment implements OnMapReadyCallback,GoogleA
         // Iterate over all the features stored in the layer
         for (GeoJsonFeature feature : layer.getFeatures()) {
             // Check if the magnitude property exists
-            if (feature.getProperty( "mag" ) != null && feature.hasProperty( "place" )) {
-                double magnitude = Double.parseDouble( feature.getProperty( "mag" ) );
+            if (feature.getProperty( "waypoint" ) != null && feature.hasProperty( "time" )) {
+                double waypoint = Double.parseDouble( feature.getProperty( "waypoint" ) );
 
                 // Get the icon for the feature
                 BitmapDescriptor pointIcon = BitmapDescriptorFactory
-                        .defaultMarker( magnitudeToColor( magnitude ) );
+                        .defaultMarker( waypointToColor( (int) waypoint ) );
 
                 // Create a new point style
                 GeoJsonPointStyle pointStyle = new GeoJsonPointStyle();
 
                 // Set options for the point style
                 pointStyle.setIcon( pointIcon );
-                pointStyle.setTitle( "Magnitude of " + magnitude );
-                pointStyle.setSnippet( "Earthquake occured " + feature.getProperty( "place" ) );
+                pointStyle.setTitle( (int) waypoint + " of Waypoint" );
+                pointStyle.setSnippet( "Arrived at " + feature.getProperty( "time" ) );
+//                Bitmap bmp = BitmapFactory.decodeResource(this.getResources(),R.drawable.drone );
+                pointStyle.setIcon( BitmapDescriptorFactory.fromResource( R.mipmap.drone_pin ) );
 
                 // Assign the point style to the feature
                 feature.setPointStyle( pointStyle );
@@ -304,16 +306,20 @@ public  class MapFragment extends Fragment implements OnMapReadyCallback,GoogleA
         }
     }
 
-    private static float magnitudeToColor(double magnitude) {
-        if (magnitude < 1.0) {
-            return BitmapDescriptorFactory.HUE_CYAN;
-        } else if (magnitude < 2.5) {
+    private static float waypointToColor(int waypoint) {
+//        if (magnitude < 1.0) {
+//            return BitmapDescriptorFactory.HUE_CYAN;
+//        } else if (magnitude < 2.5) {
+//            return BitmapDescriptorFactory.HUE_GREEN;
+//        } else if (magnitude < 4.5) {
+//            return BitmapDescriptorFactory.HUE_YELLOW;
+//        } else {
+//            return BitmapDescriptorFactory.HUE_RED;
+//        }
+        if (0 < (waypoint % 2)) {
             return BitmapDescriptorFactory.HUE_GREEN;
-        } else if (magnitude < 4.5) {
-            return BitmapDescriptorFactory.HUE_YELLOW;
-        } else {
+        } else
             return BitmapDescriptorFactory.HUE_RED;
-        }
     }
 
 

@@ -13,6 +13,6 @@
     <string name="menu_contact">Contact Us</string>
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="error_location_provider">GPS or Network not \"Enabled\"</string>
-    <string name="geojson_url">https://drive.google.com/file/d/1q5IuVvzR8xh9jUYcQV9diFbG5YkbcJO_/view?usp=sharing</string>
+    <string name="geojson_url">https://raw.githubusercontent.com/jeromechiu/SmartCityShow/master/app/src/main/res/raw/geomap.geojson</string>
 
 </resources>
