@@ -3,7 +3,10 @@
   "features": [
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+      	"stroke": "#0033db",
+      	"title": "Flight route"
+      },
       "geometry": {
         "type": "LineString",
         "coordinates": [
@@ -36,7 +39,14 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "marker-symbol": "chemist",
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "name": "Point3",
+        "description": "Point3",
+        "time": "13:01:40 12/12/2019"
+      },
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -47,7 +57,14 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "marker-symbol": "chemist",
+        "marker-color": "#008000",
+        "marker-size": "medium",
+        "name": "Point3",
+        "description": "Point3",
+        "time": "13:01:40 12/12/2019"
+      },
       "geometry": {
         "type": "Point",
         "coordinates": [
@@ -62,9 +79,8 @@
         "marker-symbol": "chemist",
         "marker-color": "#008000",
         "marker-size": "medium",
-        "name": "W1",
-        "description": "W1",
-        "icon": "https://en.pimg.jp/028/563/562/1/28563562.jpg",
+        "name": "Point3",
+        "description": "Point3",
         "time": "13:01:40 12/12/2019"
       },
       "geometry": {
@@ -75,38 +91,6 @@
         ]
       }
     },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          121.03049755096434,
-          24.770576539637563
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          121.03015691041946,
-          24.77013816211648
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          121.02986186742783,
-          24.77012842037621
-        ]
-      }
-    }
+    
   ]
 }
