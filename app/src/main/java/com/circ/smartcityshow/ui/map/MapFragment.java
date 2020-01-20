@@ -272,8 +272,9 @@ public  class MapFragment extends Fragment implements OnMapReadyCallback,GoogleA
             @Override
             public void onFeatureClick(Feature feature) {
                 Toast.makeText( getActivity(),
-                        "Feature clicked: " + feature.getProperty( "title" ),
+                        "Check Lastest Drone Position ",
                         Toast.LENGTH_SHORT ).show();
+                new DownloadGeoJsonFile().execute( getString( R.string.geojson_url ) );
             }
 
         } );

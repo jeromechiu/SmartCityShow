@@ -1,9 +1,9 @@
 package com.circ.smartcityshow;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,9 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -27,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private static final String TAG = "MainActivity";
+    public static String token;
+    public static String deviceId;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -65,14 +62,33 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         // Get new Instance ID token
-                        String token = task.getResult().getToken();
+                        token = task.getResult().getToken();
+                        deviceId = FirebaseInstanceId.getInstance().getId();
 
                         // Log and toast
-                        String msg = getString(R.string.msg_token_fmt, token);
+                        String msg = getString( R.string.msg_id_fmt, deviceId ) + ';' + getString( R.string.msg_token_fmt, token );
                         Log.d(TAG, msg);
                         Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences( getString( R.string.fcm ), MODE_PRIVATE );
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString( getString( R.string.fcm_Token ), token );
+                        editor.putString( getString( R.string.device_id ), deviceId );
+                        editor.commit();
+
+
                     }
                 });
+        String[] params;
+        params = new String[3];
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences( getString( R.string.fcm ), MODE_PRIVATE );
+        params[0] = getString( R.string.lms_backend );
+        params[1] = sharedPreferences.getString( getString( R.string.device_id ), "noDeviceID" );
+        params[2] = sharedPreferences.getString( getString( R.string.fcm_Token ), "noToken" );
+        ;
+        Log.d( TAG, "url: " + params[0] );
+        UpdateFCMToken updateFCMToken = new UpdateFCMToken();
+        Log.d( TAG, "token update: " + updateFCMToken.execute( params ) );
+
 
     }
 
@@ -92,3 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
+
+
+
