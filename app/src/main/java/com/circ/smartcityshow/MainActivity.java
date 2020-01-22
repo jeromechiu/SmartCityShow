@@ -86,8 +86,10 @@ public class MainActivity extends AppCompatActivity {
         params[2] = sharedPreferences.getString( getString( R.string.fcm_Token ), "noToken" );
         ;
         Log.d( TAG, "url: " + params[0] );
-        UpdateFCMToken updateFCMToken = new UpdateFCMToken();
-        Log.d( TAG, "token update: " + updateFCMToken.execute( params ) );
+//        UpdateFCMToken updateFCMToken = new UpdateFCMToken();
+        doFCMTokenUpdate dofcmtokenupdate = new doFCMTokenUpdate();
+        dofcmtokenupdate.doPost( params );
+//        Log.d( TAG, "token update: " + updateFCMToken.execute( params ) );
 
 
     }
